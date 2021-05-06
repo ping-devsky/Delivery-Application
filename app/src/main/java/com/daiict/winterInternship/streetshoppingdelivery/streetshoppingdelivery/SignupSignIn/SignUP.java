@@ -198,13 +198,13 @@ public class SignUP extends AppCompatActivity {
          * Else Return True
          */
         if (TextUtils.isEmpty(contact)) {
-            editTextLname.setError("Enter Contact Number");
+            editTextContact.setError("Enter Contact Number");
             return false;
         } else if (contact.length()<10) {
-            editTextLname.setError("Contact Number is not Valid");
+            editTextContact.setError("Contact Number is not Valid");
             return false;
         } else {
-            editTextLname.setError(null);
+            editTextContact.setError(null);
             return true;
         }
 
