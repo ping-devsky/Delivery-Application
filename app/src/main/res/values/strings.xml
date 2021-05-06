@@ -1,0 +1,17 @@
+<resources>
+    <string name="app_name">Street Shopping Delivery</string>
+    <string name="slider_heading_img1">User Delivery</string>
+    <string name="slider_heading_img2">vendor Priority</string>
+    <string name="slider_heading_img3">User Priority</string>
+    <string name="slider_desc_img1">User can select which delivery boy he/she wants according to his/her preference</string>
+    <string name="slider_desc_img2">Vendor has the option of selecting any specific delivery person</string>
+    <string name="slider_desc_img3">User can also has the option of selecting the delivery personnel</string>
+    <string name="password_message">Your Password is too short!</string>
+    <string name="signup_password_pattern">Password is too weak\n Combination length >7, upper and lower case a number </string>
+    <string name="signup_password_error">Kindly Enter Password!</string>
+    <string name="title_activity_bottom_nav_dashboard">BottomNavDashboard</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+
+</resources>
