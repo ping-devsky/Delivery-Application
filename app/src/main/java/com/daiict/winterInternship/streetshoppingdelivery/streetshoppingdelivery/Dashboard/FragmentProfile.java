@@ -1,5 +1,8 @@
 package com.daiict.winterInternship.streetshoppingdelivery.streetshoppingdelivery.Dashboard;
 
+import android.app.AlertDialog;
+import android.app.Dialog;
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -7,60 +10,61 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.ImageView;
 
 import com.daiict.winterInternship.streetshoppingdelivery.R;
+import com.daiict.winterInternship.streetshoppingdelivery.streetshoppingdelivery.SignupSignIn.Signin;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link FragmentProfile#newInstance} factory method to
- * create an instance of this fragment.
- */
+
 public class FragmentProfile extends Fragment {
-
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
-
-    public FragmentProfile() {
-        // Required empty public constructor
-    }
-
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment FragmentProfile.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static FragmentProfile newInstance(String param1, String param2) {
-        FragmentProfile fragment = new FragmentProfile();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
-    }
+    ImageView logout;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_profile, container, false);
+        View view =  inflater.inflate(R.layout.fragment_profile, container, false);
+        logout = view.findViewById(R.id.profile_btn_logout);
+        logout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                logoutButtonPressed(v);
+            }
+        });
+        return view;
     }
+    public void logoutButtonPressed(View view) {
+        AlertDialog.Builder Builder = new AlertDialog.Builder(getContext());
+        View view_pop = getLayoutInflater().inflate(R.layout.popup_logout, null);
+
+        final Button confirm, cancel;
+        //hooks
+        confirm = view_pop.findViewById(R.id.settings_pop_btn_confirm_logout);
+        cancel = view_pop.findViewById(R.id.settings_pop_btn_reject_logout);
+
+        //setting the view
+        Builder.setView(view_pop);
+        final Dialog dialog = Builder.create();
+        dialog.show();
+        confirm.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+
+                dialog.dismiss();
+                Intent intent = new Intent(getActivity(), Signin.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(intent);
+            }
+        });
+
+        cancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+            }
+        });
+    }
+
 }

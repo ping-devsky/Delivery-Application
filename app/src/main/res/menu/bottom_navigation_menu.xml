@@ -4,22 +4,22 @@
 
     <item
         android:id="@+id/bottom_nav_feed"
-        android:icon="@drawable/bottom_nav_feed"
-        android:title="Feed"
+        android:icon="@drawable/bottom_nav_category"
+        android:title="Home"
         app:cnb_backgroundColor="@color/Primary"
         app:cnb_iconColor="@color/black" />
 
     <item
         android:id="@+id/bottom_nav_category"
-        android:icon="@drawable/bottom_nav_category"
-        android:title="Category"
+        android:icon="@drawable/new_bottom"
+        android:title="Delivery"
         app:cnb_backgroundColor="@color/Primary"
         app:cnb_iconColor="@color/black"/>
 
     <item
         android:id="@+id/bottom_nav_notifications"
-        android:icon="@drawable/bottom_nav_notifications"
-        android:title="Notifications"
+        android:icon="@drawable/old_orders"
+        android:title="History"
         app:cnb_backgroundColor="@color/Primary"
         app:cnb_iconColor="@color/black"/>
 

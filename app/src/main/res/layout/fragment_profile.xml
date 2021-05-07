@@ -32,14 +32,14 @@
                 android:textSize="20sp" />
 
             <ImageView
-                android:id="@+id/profile_btn_settings"
+                android:id="@+id/profile_btn_logout"
                 android:layout_width="30dp"
                 android:layout_height="30dp"
                 android:layout_gravity="center"
                 android:layout_weight="2"
                 android:elevation="3dp"
                 android:paddingStart="30dp"
-                android:src="@drawable/settings_profile_fragment"
+                android:src="@drawable/logout"
                 app:tint="@color/Primary" />
 
         </LinearLayout>
