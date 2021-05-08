@@ -14,6 +14,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 
 import com.daiict.winterInternship.streetshoppingdelivery.R;
+import com.daiict.winterInternship.streetshoppingdelivery.streetshoppingdelivery.Classes.SharedPreferenceManager;
 import com.daiict.winterInternship.streetshoppingdelivery.streetshoppingdelivery.SignupSignIn.Signin;
 
 
@@ -50,7 +51,9 @@ public class FragmentProfile extends Fragment {
         confirm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                SharedPreferenceManager sharedPrefManager = new SharedPreferenceManager(getContext());
+                sharedPrefManager.setAccPassword(null);
+                sharedPrefManager.setEmail(null);
 
                 dialog.dismiss();
                 Intent intent = new Intent(getActivity(), Signin.class);

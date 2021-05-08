@@ -2,14 +2,21 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.daiict.winterInternship.streetshoppingdelivery">
 
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
+        android:usesCleartextTraffic="true"
         android:theme="@style/Theme.StreetShoppingDelivery">
-        <activity android:name=".streetshoppingdelivery.Dashboard.DashboardBottomNav"></activity>
+
+        <activity android:name=".streetshoppingdelivery.Dashboard.DashboardBottomNav">
+
+        </activity>
         <activity android:name=".streetshoppingdelivery.SignupSignIn.SignUP" />
         <activity android:name=".streetshoppingdelivery.SignupSignIn.Signin" />
         <activity android:name=".streetshoppingdelivery.IntroSlider.introSlider" />

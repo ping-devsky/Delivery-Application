@@ -8,16 +8,26 @@ import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.util.Patterns;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 
 import com.daiict.winterInternship.streetshoppingdelivery.R;
+import com.daiict.winterInternship.streetshoppingdelivery.streetshoppingdelivery.Classes.UserDataClass;
 import com.daiict.winterInternship.streetshoppingdelivery.streetshoppingdelivery.Dashboard.DashboardBottomNav;
+import com.daiict.winterInternship.streetshoppingdelivery.streetshoppingdelivery.DatabaseConnection.API;
 import com.google.android.material.snackbar.Snackbar;
 
+import java.util.ArrayList;
 import java.util.regex.Pattern;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 public class SignUP extends AppCompatActivity {
     EditText editTextEmail;
@@ -53,12 +63,10 @@ public class SignUP extends AppCompatActivity {
                     errorDetails.setText(getResources().getString(R.string.password_message));
                     errorDetails.setVisibility(View.VISIBLE);
                 }
-                if(!PASSWORD_PATTERN.matcher(editTextPassword.getText().toString()).matches())
-                {
+                if (!PASSWORD_PATTERN.matcher(editTextPassword.getText().toString()).matches()) {
                     errorDetails.setText(getResources().getString(R.string.signup_password_pattern));
                     errorDetails.setVisibility(View.VISIBLE);
-                }
-                else {
+                } else {
                     errorDetails.setVisibility(View.GONE);
                 }
             }
@@ -77,8 +85,8 @@ public class SignUP extends AppCompatActivity {
     }
 
 
-
     public void loginBtnSignUp(View view) {
+       // signupData();
         Intent intent = new Intent(this, Signin.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(intent);
@@ -87,8 +95,7 @@ public class SignUP extends AppCompatActivity {
     }
 
     public void registerButtonClicked(View view) {
-        if(validateFname() && validateLname() && emailidValidation() && validateContact() && validatePassword())
-        {
+        if (validateFname() && validateLname() && emailidValidation() && validateContact() && validatePassword()) {
             Snackbar.make(findViewById(android.R.id.content), "Signed Up Successful ! Login... ", Snackbar.LENGTH_LONG)
                     .setAction("Okay", new View.OnClickListener() {
                         @Override
@@ -106,17 +113,14 @@ public class SignUP extends AppCompatActivity {
                     })
                     .setActionTextColor(Color.RED)
                     .show();
-        }
-        else
-        {
+        } else {
 
         }
     }
 
 
-    private boolean emailidValidation()
-    {
-        String emailtext =editTextEmail.getText().toString().trim();
+    private boolean emailidValidation() {
+        String emailtext = editTextEmail.getText().toString().trim();
 
 
         if (TextUtils.isEmpty(emailtext)) {
@@ -131,8 +135,7 @@ public class SignUP extends AppCompatActivity {
         }
     }
 
-    private boolean validateFname()
-    {
+    private boolean validateFname() {
         String fname = editTextFname.getText().toString().trim();
         /*
          *If First Name is Empty or First Name contains not only Alphabets then return false
@@ -149,8 +152,8 @@ public class SignUP extends AppCompatActivity {
             return true;
         }
     }
-    private boolean validateLname()
-    {
+
+    private boolean validateLname() {
         String lname = editTextLname.getText().toString().trim();
         /*
          *If First Name is Empty or First Name contains not only Alphabets then return false
@@ -191,7 +194,7 @@ public class SignUP extends AppCompatActivity {
 
     }
 
-    private boolean validateContact(){
+    private boolean validateContact() {
         String contact = editTextContact.getText().toString().trim();
         /*
          *If First Name is Empty or First Name contains not only Alphabets then return false
@@ -200,7 +203,7 @@ public class SignUP extends AppCompatActivity {
         if (TextUtils.isEmpty(contact)) {
             editTextContact.setError("Enter Contact Number");
             return false;
-        } else if (contact.length()<10) {
+        } else if (contact.length() < 10) {
             editTextContact.setError("Contact Number is not Valid");
             return false;
         } else {
@@ -210,4 +213,30 @@ public class SignUP extends AppCompatActivity {
 
     }
 
-}
+    private void signupData() {
+            String text = "aakashT@best.com";
+            Retrofit retrofit = new Retrofit.Builder()
+                    .baseUrl("http://street-shopping-2.herokuapp.com/api/")
+                    .addConverterFactory(GsonConverterFactory.create())
+                    .build();
+
+            API instanceofapi = retrofit.create(API.class);
+            Call<UserDataClass> call = instanceofapi.getUserData(text.trim());
+            call.enqueue(new Callback<UserDataClass>() {
+                @Override
+                public void onResponse(Call<UserDataClass> call, Response<UserDataClass> response) {
+                    if(response.isSuccessful()) {
+                        UserDataClass userDataClass = response.body();
+                        Log.e("Data Got is : ", userDataClass.getEmailId() + " " + userDataClass.getPassword());
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<UserDataClass> call, Throwable t) {
+                    Log.e("Not fetched: ", "Authentication Failed!!!");
+
+                }
+            });
+        }
+    }
+
